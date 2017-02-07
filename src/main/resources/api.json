@@ -1,0 +1,1433 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "traveltotem API documentation",
+    "version": "0.0.1",
+    "title": "traveltotem API",
+    "contact": {},
+    "license": {}
+  },
+  "host": "traveltotem.herokuapp.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "user-jwt-controller",
+      "description": "User JWT Controller"
+    },
+    {
+      "name": "profile-info-resource",
+      "description": "Profile Info Resource"
+    },
+    {
+      "name": "account-resource",
+      "description": "Account Resource"
+    },
+    {
+      "name": "transfer-resource",
+      "description": "Transfer Resource"
+    },
+    {
+      "name": "user-resource",
+      "description": "User Resource"
+    },
+    {
+      "name": "transfer-totem-resource",
+      "description": "Transfer Totem Resource"
+    },
+    {
+      "name": "totem-resource",
+      "description": "Totem Resource"
+    }
+  ],
+  "paths": {
+    "/api/account": {
+      "get": {
+        "tags": [
+          "account-resource"
+        ],
+        "summary": "getAccount",
+        "operationId": "getAccountUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserDTO"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "account-resource"
+        ],
+        "summary": "saveAccount",
+        "operationId": "saveAccountUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userDTO",
+            "description": "userDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/account/change_password": {
+      "post": {
+        "tags": [
+          "account-resource"
+        ],
+        "summary": "changePassword",
+        "operationId": "changePasswordUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "password",
+            "description": "password",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/account/reset_password/finish": {
+      "post": {
+        "tags": [
+          "account-resource"
+        ],
+        "summary": "finishPasswordReset",
+        "operationId": "finishPasswordResetUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "keyAndPassword",
+            "description": "keyAndPassword",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/KeyAndPasswordVM"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/account/reset_password/init": {
+      "post": {
+        "tags": [
+          "account-resource"
+        ],
+        "summary": "requestPasswordReset",
+        "operationId": "requestPasswordResetUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "mail",
+            "description": "mail",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/activate": {
+      "get": {
+        "tags": [
+          "account-resource"
+        ],
+        "summary": "activateAccount",
+        "operationId": "activateAccountUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "description": "key",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/authenticate": {
+      "get": {
+        "tags": [
+          "account-resource"
+        ],
+        "summary": "isAuthenticated",
+        "operationId": "isAuthenticatedUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user-jwt-controller"
+        ],
+        "summary": "authorize",
+        "operationId": "authorizeUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "loginVM",
+            "description": "loginVM",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginVM"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/profile-info": {
+      "get": {
+        "tags": [
+          "profile-info-resource"
+        ],
+        "summary": "getActiveProfiles",
+        "operationId": "getActiveProfilesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ProfileInfoResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/register": {
+      "post": {
+        "tags": [
+          "account-resource"
+        ],
+        "summary": "registerAccount",
+        "operationId": "registerAccountUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "managedUserVM",
+            "description": "managedUserVM",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ManagedUserVM"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/totems": {
+      "get": {
+        "tags": [
+          "totem-resource"
+        ],
+        "summary": "getAllTotems",
+        "operationId": "getAllTotemsUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number of the requested page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Size of a page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TotemDTO"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "totem-resource"
+        ],
+        "summary": "createTotem",
+        "operationId": "createTotemUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "totemDTO",
+            "description": "totemDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TotemDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TotemDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "totem-resource"
+        ],
+        "summary": "updateTotem",
+        "operationId": "updateTotemUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "totemDTO",
+            "description": "totemDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TotemDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TotemDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/totems/receive": {
+      "post": {
+        "tags": [
+          "transfer-totem-resource"
+        ],
+        "summary": "receiveTransfer",
+        "operationId": "receiveTransferUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "transferDTO",
+            "description": "transferDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TransferDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DeferredResultOfTransferDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/totems/send": {
+      "post": {
+        "tags": [
+          "transfer-totem-resource"
+        ],
+        "summary": "sendTransfer",
+        "operationId": "sendTransferUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "transferDTO",
+            "description": "transferDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TransferDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DeferredResultOfTransferDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/totems/{id}": {
+      "get": {
+        "tags": [
+          "totem-resource"
+        ],
+        "summary": "getTotem",
+        "operationId": "getTotemUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TotemDTO"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "totem-resource"
+        ],
+        "summary": "deleteTotem",
+        "operationId": "deleteTotemUsingDELETE",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/transfers": {
+      "get": {
+        "tags": [
+          "transfer-resource"
+        ],
+        "summary": "getAllTransfers",
+        "operationId": "getAllTransfersUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number of the requested page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Size of a page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TransferDTO"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "transfer-resource"
+        ],
+        "summary": "createTransfer",
+        "operationId": "createTransferUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "transferDTO",
+            "description": "transferDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TransferDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TransferDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "transfer-resource"
+        ],
+        "summary": "updateTransfer",
+        "operationId": "updateTransferUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "transferDTO",
+            "description": "transferDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TransferDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TransferDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/transfers/{id}": {
+      "get": {
+        "tags": [
+          "transfer-resource"
+        ],
+        "summary": "getTransfer",
+        "operationId": "getTransferUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TransferDTO"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "transfer-resource"
+        ],
+        "summary": "deleteTransfer",
+        "operationId": "deleteTransferUsingDELETE",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "user-resource"
+        ],
+        "summary": "getAllUsers",
+        "operationId": "getAllUsersUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number of the requested page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Size of a page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ManagedUserVM"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user-resource"
+        ],
+        "summary": "createUser",
+        "operationId": "createUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "managedUserVM",
+            "description": "managedUserVM",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ManagedUserVM"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user-resource"
+        ],
+        "summary": "updateUser",
+        "operationId": "updateUserUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "managedUserVM",
+            "description": "managedUserVM",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ManagedUserVM"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ManagedUserVM"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/users/{login}": {
+      "get": {
+        "tags": [
+          "user-resource"
+        ],
+        "summary": "getUser",
+        "operationId": "getUserUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "login",
+            "in": "path",
+            "description": "login",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ManagedUserVM"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user-resource"
+        ],
+        "summary": "deleteUser",
+        "operationId": "deleteUserUsingDELETE",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "login",
+            "in": "path",
+            "description": "login",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LoginVM": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "rememberMe": {
+          "type": "boolean"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "ProfileInfoResponse": {
+      "type": "object",
+      "properties": {
+        "activeProfiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ribbonEnv": {
+          "type": "string"
+        }
+      }
+    },
+    "KeyAndPasswordVM": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "TotemDTO": {
+      "type": "object",
+      "properties": {
+        "createdById": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "creationLatitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "creationLongitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "DeferredResultOfTransferDTO": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object"
+        },
+        "setOrExpired": {
+          "type": "boolean"
+        }
+      }
+    },
+    "UserDTO": {
+      "type": "object",
+      "properties": {
+        "activated": {
+          "type": "boolean"
+        },
+        "authorities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "langKey": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "login": {
+          "type": "string"
+        }
+      }
+    },
+    "TransferDTO": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fromUserId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "NEW",
+            "COMPLETED"
+          ]
+        },
+        "toUserId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totemId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ManagedUserVM": {
+      "type": "object",
+      "properties": {
+        "activated": {
+          "type": "boolean"
+        },
+        "authorities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "langKey": {
+          "type": "string"
+        },
+        "lastModifiedBy": {
+          "type": "string"
+        },
+        "lastModifiedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "login": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
